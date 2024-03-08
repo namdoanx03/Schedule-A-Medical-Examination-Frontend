@@ -1,0 +1,78 @@
+.login-background {
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+
+    .login-container {
+        width: 400px;
+        height: 100%;
+        margin: 0 auto;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .login-content {
+        padding: 10px;
+
+        .text-login {
+            font-weight: 600;
+            font-size: 24px;
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .login-input {
+            margin: 7px 0;
+        }
+
+        .btn-login {
+            width: 100%;
+            margin: 10px 0;
+            height: 35px;
+            border-radius: 15px;
+            outline: none;
+            border: none;
+            background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .format-pasword {
+            font-size: 12px;
+        }
+
+        .social-login {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            margin-top: 10px;
+
+            .google {
+                font-size: 30px;
+                background: #c32424;
+                border-radius: 50%;
+                height: 50px;
+                width: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                margin-left: 10px;
+            }
+
+            .facebook {
+                font-size: 30px;
+                background: #307aaf;
+                border-radius: 50%;
+                height: 50px;
+                width: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+        }
+    }
+}
