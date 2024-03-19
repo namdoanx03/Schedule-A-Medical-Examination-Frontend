@@ -55,23 +55,43 @@
                 display: flex;
                 align-items: center;
 
-                i{
+                i {
                     font-size: 15px;
                     margin-right: 5px;
                 }
             }
+
             .language-vi {
                 cursor: pointer;
-                &.active{
-                    color:orange
+                opacity: 0.3;
+                margin: 0 10px;
+
+                &.active {
+                    opacity: 1;
+
+                    span {
+                        color: orange
+                    }
+                }
+                &:hover{
+                    opacity: 0.8;
                 }
             }
-            
+
             .language-en {
                 cursor: pointer;
+                opacity: 0.3;
                 margin: 0 10px;
-                &.active{
-                    color:blue
+
+                &.active {
+                    opacity: 1;
+
+                    span {
+                        color: blue
+                    }
+                }
+                &:hover {
+                    opacity: 0.8;
                 }
             }
         }
@@ -137,6 +157,7 @@
     .content-down {
         height: 35%;
         display: flex;
+        padding-bottom: 10px;
         align-items: flex-end;
         justify-content: center;
         background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
