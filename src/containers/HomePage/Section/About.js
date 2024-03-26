@@ -18,7 +18,7 @@ class About extends Component {
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen></iframe>
+                            allowFullScreen></iframe>
                     </div>
                     <div className='content-right'>
                         <p>Với các đơn vị đang muốn sản xuất Content SEO y tế, quan tâm đến việc sử dụng Google Keyword Planner để chọn từ khóa triển khai viết bài có thể tham khảo bài viết dưới đây.</p>
