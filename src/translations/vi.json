@@ -45,10 +45,14 @@
         "role": "Vai trò",
         "address": "Địa chỉ",
         "phone-number": "Số điện thoại",
-        "gender":"Giới tính",
-        "image":"Ảnh đại diện",
-        "position":"Chức danh",
-        "save":"Lưu user",
+        "gender": "Giới tính",
+        "image": "Ảnh đại diện",
+        "position": "Chức danh",
+        "save": "Lưu user",
         "edit": "Lưu thay đổi"
+    },
+    "homepage": {
+        "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
+        "more-infor": "Xem thêm"
     }
 }

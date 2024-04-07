@@ -50,5 +50,9 @@
         "position": "Position",
         "save": "Save",
         "edit": "Edit user"
+    },
+    "homepage": {
+        "outstanding-doctor": "Doctor featured last week",
+        "more-infor": "More infor"
     }
 }
