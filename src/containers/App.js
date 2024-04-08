@@ -21,7 +21,7 @@ import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import HomePage from './HomePage/HomePage'
 import CustomScrollbars from '../components/CustomScrollbars';
-import DetailDoctor from './HomePage/Patient/Doctor/DetailDoctor';
+import DetailDoctor from './Patient/Doctor/DetailDoctor';
 
 class App extends Component {
 

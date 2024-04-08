@@ -7,7 +7,6 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from "react-router";
 
 class OutStandingDoctor extends Component {
-    
     constructor(props) {
         super(props)
         this.state = {
@@ -26,8 +25,10 @@ class OutStandingDoctor extends Component {
         this.props.loadTopDoctors()
     }
     handleViewDetailDoctor = (doctor) => {
-        console.log('check viewInfor---', doctor)
-        this.props.history.push(`/detail-doctor/${doctor.id}`)
+        if(this.props.history){
+            this.props.history.push(`/detail-doctor/${doctor.id}`)
+        }
+        // console.log("check ----", this.props)
     }
     render() {
         console.log('check arrDoctor:', this.props.topDoctorsRedux)
