@@ -6,8 +6,10 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import './ManageDoctor.scss'
 import Select from 'react-select'
-import { LANGUAGES } from '../../../utils';
+import { CRUD_ACTION, LANGUAGES } from '../../../utils';
 import { saveDetailDoctor } from '../../../services/userService';
+import { getDetailInforDoctor } from '../../../services/userService';
+import { FormattedMessage } from 'react-intl';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -20,7 +22,8 @@ class ManageDoctor extends Component {
             contentHTML:'',
             selectedOption:'',
             description:'',
-            listDoctors:[]
+            listDoctors:[],
+            hasOldData:false
         }
     }
     componentDidMount() {
@@ -64,17 +67,38 @@ class ManageDoctor extends Component {
         console.log('handleEditorChange', html, text);
     }
     handleSaveContentMarkdown = () => {
+        let {hasOldData} = this.state
         this.props.saveDetailDoctor({
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
             doctorId: this.state.selectedOption.value,
+            action:hasOldData === true ? CRUD_ACTION.EDIT : CRUD_ACTION.CREATE
         })
         console.log("check state:", this.state);
     }
-    handleChange = selectedOption => {
+    handleChangeSelect =async (selectedOption) => {
         this.setState({selectedOption})
-        console.log('Option selected:', selectedOption)
+        let res = await getDetailInforDoctor(selectedOption.value)
+        if(res && res.errCode === 0 && res.data.Markdown){
+            let markdown = res.data.Markdown;
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+                hasOldData: true
+
+            })
+        }else{
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false
+
+            })
+        }
+        console.log('namdaonx check:', res)
     }
     handleOnChangeDesc = (event) => {
         this.setState({
@@ -83,6 +107,7 @@ class ManageDoctor extends Component {
     }
 
     render() {
+        let {hasOldData} = this.state
         console.log('check:', this.state)
         // console.log('check all user:', this.props.listUsers)
         // console.log('check state:', this.state.userRedux)
@@ -95,12 +120,10 @@ class ManageDoctor extends Component {
                     </div>
                     <div className='more-info'>
                         <div className='content-left form-group'>
-                            <label>
-                                Chọn bác sĩ
-                            </label>
+                            <label><FormattedMessage id="manage-schedule.title" /></label>
                             <Select
                                 value={this.state.selectedOption} 
-                                onChange={this.handleChange}
+                                onChange={this.handleChangeSelect}
                                 options={this.state.listDoctors} 
                             />
                         </div>
@@ -121,9 +144,15 @@ class ManageDoctor extends Component {
                     renderHTML={text => mdParser.render(text)} 
                     onChange={ this.handleEditorChange} />
                 </div>
-                <button className='save-content-doctor'
-                onClick={()=> this.handleSaveContentMarkdown()}
-                >Lưu thông tin</button>
+                <button onClick={()=> this.handleSaveContentMarkdown()}
+                    className={hasOldData === true ? "save-content-doctor" : "create-content-doctor"}
+                >
+                    {hasOldData === true ? <span>
+                        Lưu thông tin
+                    </span> : <span>
+                        Tạo thông tin
+                        </span>}
+                </button>
             </div>
         );
     }
@@ -140,7 +169,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllDoctors: (id) => dispatch(actions.fetchAllDoctors()),
+        fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
         saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
     };
 }
