@@ -100,14 +100,13 @@ class ManageSchedule extends Component {
             toast.error("Invalid selected doctor!")
             return;
         }
-        // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
-        //  = moment(currentDate).unix()
+
         let formatedDate = new Date(currentDate).getTime()
         if(rangeTime && rangeTime.length >  0){
-            let selectedTime = rangeTime.filter(item => item.isSelected == true); 
+            let selectedTime = rangeTime.filter(item => item.isSelected === true); 
             if (selectedTime && selectedTime.length > 0){
                 selectedTime.map((schedule, index) => {
-                    console.log("check schedule:", schedule, index, selectedDoctor)
+                    // console.log("check schedule:", schedule, index, selectedDoctor)
                     let object = {}
                     object.doctorId = selectedDoctor.value
                     object.date = formatedDate
@@ -124,14 +123,21 @@ class ManageSchedule extends Component {
             doctorId: selectedDoctor.value,
             formatedDate: formatedDate
         })
-        console.log('check saveBulkScheduleDoctor:', res)
-        console.log("check result:", result)
+        if (res && res.errCode === 0){
+            toast.success(" Save Infor success!")
+        }else{
+            toast.error("error saveBulkScheduleDoctor")
+            console.log(" error saveBulkScheduleDoctor", res)
+        }
+
     }
+
     render() {
         console.log('check state:', this.state);
         let {rangeTime} = this.state
         let {language} = this.props
-        console.log('check state: ', rangeTime)
+        let yesterday = new Date(new Date().setDate(new Date().getDate() -1))
+        // console.log('check state: ', rangeTime)
         return (
             <div className='manage-schedule-container'>
                 <div className='m-s-title'>
@@ -156,7 +162,8 @@ class ManageSchedule extends Component {
                             <DatePicker className='form-control'
                                 value = {this.state.currentDate}
                                 onChange={this.handleChangeDatePicker}    
-                                minDate = {new Date()}                        />
+                                minDate={yesterday}                      
+                            />
                         </div>
                         <div className='col-12 pick-hour-container'>
                             {rangeTime && rangeTime.length > 0 && 
