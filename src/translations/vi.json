@@ -36,7 +36,7 @@
             "manage-handbook": "Quản lí cẩm nang"
         },
         "doctor":{
-            "manage-schedule":"Quản lí kế hoạch khám bệnh"
+            "manageSchedule":"Quản lí kế hoạch khám bệnh"
         }
     },
     "manage-user": {
@@ -71,6 +71,13 @@
             "no-schedule":"Không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác",
             "choose":"Chọn ",
             "book-free":" và đặt (miễn phí)"
+        },
+        "extra-infor-doctor":{
+            "text-address":"Dia Chi Kham",
+            "price":"Gia Kham",
+            "detail":"Xem chi tiết",
+            "payment":"Người bệnh có thể thanh toán chi phí bằng hình thức: ",
+            "hide-price":"An bang gia"
         }
     },
     "admin":{
@@ -79,7 +86,15 @@
             "select-doctor":"Chọn bác sĩ",
             "intro":"Thông tin giới thiệu",
             "add":"Tạo thông tin",
-            "save":"Lưu thông tin"
+            "save":"Lưu thông tin",
+            "add":"Tạo thông Tin",
+            "save":"Lưu thông tin",
+            "price": "Chọn giá",
+            "payment": "Phương thức thanh toán",
+            "province": "Chọn tỉnh",
+            "nameClinic": "Tên phòng khám",
+            "addressClinic": "Địa chỉ phòng khám",
+            "note": "Ghi chú"
         }
     }
 }

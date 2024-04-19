@@ -231,6 +231,7 @@ export const saveDetailDoctor = (data) => {
         try {
             let res = await saveDetailDoctorService(data)
             if (res && res.errCode === 0) {
+                console.log('check res---', res)
                 toast.success("Save infor Detail Doctor the user success!")
                 dispatch({
                     type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS,
@@ -279,31 +280,31 @@ export const getRequiredDoctorInfor = () => {
 
             let resPrice = await getAllCodeService("PRICE");
             let resPayment = await getAllCodeService("PAYMENT");
-            let resProvince = await getAllCodeService("PAYMENT");
+            let resProvince = await getAllCodeService("PROVINCE");
             if (resPrice && resPrice.errCode === 0 &&
                 resPayment && resPayment.errCode === 0 &&
-                resProvince && resProvince.errCode === 0
-            ) {
+                resProvince && resProvince.errCode === 0) 
+                {
                 let data ={
                     resPrice: resPrice.data,
                     resPayment: resPayment.data,
                     resProvince: resProvince.data,
                 }
-                dispatch(getRequiredDoctorInforSuccess(data))
+                dispatch(fetchRequiredDoctorInforSuccess(data))
             } else {
-                dispatch(getRequiredDoctorInforFailed())
+                dispatch(fetchRequiredDoctorInforFailed())
             }
         } catch (error) {
-            dispatch(getRequiredDoctorInforFailed())
-            console.log('getRequiredDoctorInforFailed error:', error)
+            dispatch(fetchRequiredDoctorInforFailed())
+            console.log('fetchRequiredDoctorInfor error:', error)
         }
     }
 
 }
-export const getRequiredDoctorInforSuccess = (allRequiredData) => ({
+export const fetchRequiredDoctorInforSuccess = (allRequiredData) => ({
     type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_SUCCESS,
     data: allRequiredData
 })
-export const getRequiredDoctorInforFailed = () => ({
+export const fetchRequiredDoctorInforFailed = () => ({
     type: actionTypes.FETCH_GREQUIRED_DOCTOR_INFOR_FAILDED
 })
