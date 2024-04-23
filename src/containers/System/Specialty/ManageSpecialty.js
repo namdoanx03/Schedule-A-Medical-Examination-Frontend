@@ -49,6 +49,7 @@ class ManageSpecialty extends Component {
         let file = data[0]
         if (file) {
             let base64 = await CommonUtils.getBase64(file)
+            console.log('check base64', base64)
             this.setState({
                 imageBase64: base64
             })
@@ -58,6 +59,13 @@ class ManageSpecialty extends Component {
         let res = await createNewSpecialty(this.state)
         if( res && res.infor.errCode === 0){
             toast.success("Add new specialty succeed!")
+            this.setState({
+                name: '',
+                imageBase64: '',
+                descriptionHTML: '',
+                descriptionMarkdown: ''
+            })
+            
         }else{
             toast.error("Wrong!")
             console.log('check res:', res)
@@ -65,7 +73,7 @@ class ManageSpecialty extends Component {
         
     }
     render() {
-
+        
         return (
             <div className='manage-specialty-container'>
                 <div className='ms-title'>Quản lí chuyên khoa</div>
