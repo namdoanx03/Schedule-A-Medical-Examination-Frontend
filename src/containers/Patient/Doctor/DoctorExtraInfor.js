@@ -4,7 +4,6 @@ import './DoctorExtraInfor.scss'
 import { LANGUAGES } from '../../../utils';
 import { getExtraInforDoctorById } from '../../../services/userService';
 import { FormattedMessage } from 'react-intl';
-import { isAwaitExpression } from 'typescript';
 import NumberFormat from 'react-number-format'
 
 class DoctorExtraInfor extends Component {
@@ -17,7 +16,14 @@ class DoctorExtraInfor extends Component {
         }
     }
     async componentDidMount(){
-
+        if(this.props.doctorIdFromParent){
+            let res = await getExtraInforDoctorById(this.props.doctorIdFromParent)
+            if(res && res.errCode === 0){
+                this.setState({
+                    extraInfor: res.data
+                })
+            }
+        }
     }
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.language !== prevProps.language){
