@@ -1,0 +1,14 @@
+.clinic-child{
+    cursor: pointer;
+
+    .bg-image{
+        border: 1px solid #ccc;
+    }
+    .clinic-name{
+        padding: 10px 0;
+
+        &:hover{
+            color: #45c3d2;
+        }
+    }
+}

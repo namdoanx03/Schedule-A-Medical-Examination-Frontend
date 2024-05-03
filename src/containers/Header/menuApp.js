@@ -20,7 +20,7 @@ export const adminMenu = [
             // },
             
             { // quản lí kế hoạch khám bệnh của bacs sĩ
-                name: 'menu.doctor.manage.schedule', link: '/doctor/manage-schedule'
+                name: 'menu.doctor.manageSchedule', link: '/doctor/manage-schedule'
             },
         ]
     },

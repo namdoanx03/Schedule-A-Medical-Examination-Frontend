@@ -36,8 +36,8 @@ class ManageDoctor extends Component {
             selectedPrice:'',
             selectedPayment:'',
             selectedProvince:'',
-            selectClinic:'',
-            selectSpecialty:'',
+            selectedClinic:'',
+            selectedSpecialty:'',
 
             nameClinics:'',
             addressClinic:'',
@@ -92,10 +92,19 @@ class ManageDoctor extends Component {
                     result.push(object)
                 })
             }
+            if (type === 'CLINIC') {
+                inputData.map((item, index) => {
+                    let object = {}
+                    object.label = item.name
+                    object.value = item.id
+                    result.push(object)
+                })
+            }
         }
         return result
+        
     }
-
+    
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.allDoctors !== this.props.allDoctors){
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
@@ -119,18 +128,20 @@ class ManageDoctor extends Component {
             })
         }
         if (prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor) {
-            let {resPayment, resPrice, resProvince, resSpecialty} = this.props.allRequiredDoctorInfor
+            let {resPayment, resPrice, resProvince, resSpecialty, resClinic } = this.props.allRequiredDoctorInfor
             
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE')
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT')
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE')
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
+            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
 
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
-                listSpecialty: dataSelectSpecialty
+                listSpecialty: dataSelectSpecialty,
+                listClinic : dataSelectClinic
             })
         }
     }
@@ -157,21 +168,22 @@ class ManageDoctor extends Component {
             nameClinic: this.state.nameClinic,
             addressClinic: this.state.addressClinic,
             note: this.state.note,
-            clinicId: this.state.selectClinic && 
-            this.state.selectClinic.value ? this.state.selectClinic.value : '',
-            specialtyId:this.state.selectSpecialty.value
+            clinicId: this.state.selectedClinic && 
+            this.state.selectedClinic.value ? this.state.selectedClinic.value : '',
+            specialtyId:this.state.selectedSpecialty.value
         })
     }
     handleChangeSelect = async (selectedOption) => {
         this.setState({selectedOption})
-        let {listPayment, listPrice, listProvince} = this.state;
+        let { listPayment, listPrice, listProvince, listSpecialty, listClinic } = this.state;
         let res = await getDetailInforDoctor(selectedOption.value)
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
             let addressClinic = '', nameClinic = '', note ='',
             paymentId = '', priceId = '', provinceId = '',
-            selectedPayment ='',selectedPrice= '', selectedProvince=''
+            selectedPayment ='',selectedPrice= '', selectedProvince='',
+            clinicId = '', selectedClinic = '', specialtyId = '', selectedSpecialty= ''
 
             if(res.data.Doctor_Infor){
                 addressClinic = res.data.Doctor_Infor.addressClinic
@@ -180,6 +192,8 @@ class ManageDoctor extends Component {
                 paymentId = res.data.Doctor_Infor.paymentId
                 priceId = res.data.Doctor_Infor.priceId
                 provinceId = res.data.Doctor_Infor.provinceId
+                specialtyId = res.data.Doctor_Infor.specialtyId
+                clinicId = res.data.Doctor_Infor.clinicId
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -189,6 +203,12 @@ class ManageDoctor extends Component {
                 })
                 selectedProvince = listProvince.find(item => {
                     return item && item.value === provinceId
+                })
+                selectedSpecialty = listSpecialty.find(item => {
+                    return item && item.value === specialtyId
+                })
+                selectedClinic = listClinic.find(item => {
+                    return item && item.value === clinicId
                 })
             }
             this.setState({
@@ -202,7 +222,8 @@ class ManageDoctor extends Component {
                 selectedPayment: selectedPayment,
                 selectedPrice: selectedPrice,
                 selectedProvince: selectedProvince,
-
+                selectedSpecialty: selectedSpecialty,
+                selectedClinic: selectedClinic
             })
         } else {
             this.setState({
@@ -212,7 +233,12 @@ class ManageDoctor extends Component {
                 hasOldData: false,
                 addressClinic:'',
                 nameClinic:'',
-                note:''
+                note:'',
+                selectedPayment: '',
+                selectedPrice: '',
+                selectedProvince: '',
+                selectedSpecialty: '',
+                selectedClinic: ''
 
             })
         }
@@ -333,7 +359,7 @@ class ManageDoctor extends Component {
                         <Select
                             value={this.state.selectClinic}
                             onChange={this.handleChangeSelectDoctorInfor}
-                            options={this.state.selectClinic}
+                            options={this.state.listClinic}
                             placeholder={<FormattedMessage id="admin.manage-doctor.select-clinic" />}
                             name="selectClinic"
                         />
